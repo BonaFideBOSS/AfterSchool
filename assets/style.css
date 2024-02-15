@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap');
+
+.satisfy-regular {
+  font-family: "Satisfy", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  font-family: "Inter", sans-serif;
+}
+
+*:focus-visible,
+*:focus {
+  box-shadow: none !important;
+}
+
+.fw-bolder {
+  font-weight: 900 !important;
+}
+
+.text-purple {
+  --bs-text-opacity: 1;
+  color: rgba(111, 66, 193, var(--bs-text-opacity)) !important;
+}
+
+.text-indigo {
+  --bs-text-opacity: 1;
+  color: rgba(102, 16, 242, var(--bs-text-opacity)) !important;
+}
+
+.text-orange {
+  --bs-text-opacity: 1;
+  color: rgba(253, 126, 20, var(--bs-text-opacity)) !important;
+}
+
+.text-pink {
+  --bs-text-opacity: 1;
+  color: rgba(214, 51, 132, var(--bs-text-opacity)) !important;
+}
+
+.navbar img {
+  width: 60px;
+  height: 60px;
+}
