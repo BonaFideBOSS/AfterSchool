@@ -1,92 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AfterSchool</title>
-    <link
-      rel="shortcut icon"
-      href="assets/images/favicon.ico"
-      type="image/x-icon"
-    />
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/bootstrap.5.3.2/bootstrap.min.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AfterSchool</title>
+  <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
 
-    <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="assets/fontawesome.6.5.1/css/all.css" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="assets/bootstrap.5.3.2/bootstrap.min.css" />
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/style.css" />
-  </head>
+  <!-- Font Awesome CSS -->
+  <link rel="stylesheet" href="assets/fontawesome.6.5.1/css/all.css" />
 
-  <body>
-    <main id="app">
-      <nav class="navbar border-bottom border-2 border-warning">
-        <div class="container-fluid">
-          <a class="navbar-brand fs-1 fw-bold satisfy-regular mx-auto" href="/">
-            <!-- <img src="assets/images/logo.png" /> -->
-            <span class="satisfy-regular text-success fw-bold">After</span
-            ><span class="satisfy-regular fw-bold">School</span>
-          </a>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+
+<body>
+  <nav class="navbar border-bottom border-2 border-warning">
+    <div class="container-fluid">
+      <a class="navbar-brand fs-1 fw-bold satisfy-regular mx-auto" href="/">
+        <!-- <img src="assets/images/logo.png" /> -->
+        <span class="satisfy-regular text-success fw-bold">After</span><span
+          class="satisfy-regular fw-bold">School</span>
+      </a>
+    </div>
+  </nav>
+
+  <main id="app">
+    <div class="my-5 container">
+      <h1 class="fw-semibold">Lessons</h1>
+
+      <div class="my-3 d-flex flex-wrap flex-md-nowrap gap-3 align-items-end justify-content-end">
+        <!-- Search Bar -->
+        <div class="input-group input-group-lg border rounded-4 overflow-hidden">
+          <label class="input-group-text border-0" for="search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </label>
+          <input id="search" class="form-control border-0" type="text" placeholder="Search lessons" />
         </div>
-      </nav>
 
-      <div class="my-5 container">
-        <h1 class="fw-semibold">Lessons</h1>
+        <!-- Sort Bar -->
+        <div class="input-group input-group-lg border rounded-4 overflow-hidden">
+          <label class="input-group-text border-0" for="sortBy">Sort by</label>
+          <select v-model="sortBy" id="sortBy" class="form-select border-0">
+            <option value="subject">Subject</option>
+            <option value="location">Location</option>
+            <option value="price">Price</option>
+            <option value="spaces">Availability (spaces)</option>
+          </select>
+        </div>
 
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-          <div v-for="lesson in lessons" class="col">
-            <div class="card h-100">
-              <div class="card-body d-flex">
-                <div class="d-flex flex-column align-items-start">
-                  <h5 class="card-title">{{lesson.subject}}</h5>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">
-                    AED {{lesson.price}}
-                  </h6>
-                  <p class="card-text">
-                    <span class="badge text-bg-light fw-normal">
-                      {{lesson.location}}
-                    </span>
-                    <span class="badge text-bg-light fw-normal">
-                      {{lesson.spaces}} spaces
-                    </span>
-                  </p>
-                  <button class="mt-auto btn btn-sm btn-outline-primary">
-                    Add to cart
-                  </button>
-                </div>
-                <div :class="`ms-auto text-${lesson.color}`">
-                  <i class="fa-duotone fa-3x" :class="lesson.icon"></i>
-                </div>
+        <!-- Sort Order Button -->
+        <button @click="toggleSortOrder" class="btn btn-lg btn-outline-primary rounded-4">
+          <i :class="`fa-solid fa-arrow-${sortOrderAsc ? 'up' : 'down'}-wide-short`"></i>
+        </button>
+      </div>
+
+      <!-- List of Lessons -->
+      <div class="mt-4 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+        <div v-for="lesson in sortedLessons" class="col">
+          <div class="card h-100 rounded-4">
+            <div class="card-body d-flex">
+              <div class="d-flex flex-column align-items-start">
+                <h5 class="card-title">{{lesson.subject}}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">AED {{lesson.price}}</h6>
+                <p class="card-text">
+                  <span class="badge text-bg-light fw-normal">{{lesson.location}}</span>
+                  <span class="badge text-bg-light fw-normal">{{lesson.spaces}} spaces</span>
+                </p>
+                <button class="mt-auto btn btn-sm btn-outline-primary">Add to cart</button>
+              </div>
+              <div :class="`ms-auto text-${lesson.color}`">
+                <i class="fa-duotone fa-3x" :class="lesson.icon"></i>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </main>
+      <!-- End of List of Lessons -->
 
-    <footer class="bg-light py-4">
-      <div
-        class="container small d-flex flex-column flex-lg-row justify-content-lg-between gap-2 text-center"
-      >
-        <p class="mb-0">&copy 2024 AfterSchool</p>
-        <p class="mb-0">Designed by Amaan Al Mir - M00999011</p>
-        <a href="mailto:am4013@live.mdx.ac.uk">am4013@live.mdx.ac.uk</a>
-      </div>
-    </footer>
+    </div>
+  </main>
 
-    <!-- Bootstrap JavaScript -->
-    <script src="assets/bootstrap.5.3.2/bootstrap.bundle.min.js"></script>
+  <footer class="bg-body-tertiary py-4">
+    <div class="container small d-flex flex-column flex-lg-row justify-content-lg-between gap-2 text-center">
+      <p class="mb-0">&copy 2024 AfterSchool</p>
+      <p class="mb-0">Designed by Amaan Al Mir - M00999011</p>
+      <a href="mailto:am4013@live.mdx.ac.uk">am4013@live.mdx.ac.uk</a>
+    </div>
+  </footer>
 
-    <!-- Vue.js Production Build -->
-    <!-- <script src="assets/vue.2.7.16.min.js"></script> -->
+  <!-- Bootstrap JavaScript -->
+  <script src="assets/bootstrap.5.3.2/bootstrap.bundle.min.js"></script>
 
-    <!-- Vue.js Developer Build -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+  <!-- Vue.js Production Build -->
+  <!-- <script src="assets/vue.2.7.16.min.js"></script> -->
 
-    <!-- Custom JavaScript -->
-    <script src="lessons.js"></script>
-    <script src="assets/script.js"></script>
-  </body>
+  <!-- Vue.js Developer Build -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+
+  <!-- Custom JavaScript -->
+  <script src="lessons.js"></script>
+  <script src="assets/script.js"></script>
+</body>
+
 </html>
