@@ -38,5 +38,32 @@ var app = new Vue({
     toggleSortOrder() {
       this.sortOrderAsc = !this.sortOrderAsc;
     },
+
+    // Add to Cart Functionality
+    addToCart(lesson) {
+      if (this.canAddToCart(lesson)) {
+        this.cart.push(lesson.id);
+      }
+    },
+
+    removeFromCart(lesson) {
+      const index = this.cart.indexOf(lesson.id);
+      if (index > -1) {
+        this.cart.splice(index, 1);
+      }
+    },
+
+    cartItemCount(lessonId) {
+      return this.cart.filter((id) => id === lessonId).length;
+    },
+
+    canAddToCart(lesson) {
+      return lesson.spaces > this.cartItemCount(lesson.id);
+    },
+
+    canRemoveFromCart(lesson) {
+      return this.cartItemCount(lesson.id) > 0;
+    },
+    // End of Add to Cart Functionality
   },
 });
