@@ -22,7 +22,7 @@
     <div class="container-fluid">
       <a class="navbar-brand fs-1 fw-bold satisfy-regular mx-auto" href="/">
         <!-- <img src="assets/images/logo.png" /> -->
-        <span class="satisfy-regular text-success fw-bold">After</span><span
+        <span class="satisfy-regular text-danger fw-bold">After</span><span
           class="satisfy-regular fw-bold">School</span>
       </a>
     </div>
@@ -38,7 +38,8 @@
           <label class="input-group-text border-0" for="search">
             <i class="fa-solid fa-magnifying-glass"></i>
           </label>
-          <input id="search" class="form-control border-0" type="text" placeholder="Search lessons" />
+          <input v-model="search" id="search" class="form-control border-0" type="text" placeholder="Search lessons"
+            autocomplete="off" />
         </div>
 
         <!-- Sort Bar -->
@@ -70,7 +71,7 @@
                   <span class="badge text-bg-light fw-normal">{{lesson.location}}</span>
                   <span class="badge text-bg-light fw-normal">{{lesson.spaces}} spaces</span>
                 </p>
-                <button class="mt-auto btn btn-sm btn-outline-primary">Add to cart</button>
+                <button class="mt-auto btn btn-sm btn-outline-primary rounded-3">Add to cart</button>
               </div>
               <div :class="`ms-auto text-${lesson.color}`">
                 <i class="fa-duotone fa-3x" :class="lesson.icon"></i>
