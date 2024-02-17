@@ -32,6 +32,25 @@ var app = new Vue({
       }
       return this.filteredLessons.sort(compare);
     },
+
+    // Shopping Cart Functionality 1
+    cartDetails() {
+      const uniqueLessonIds = Array.from(new Set(this.cart));
+      return uniqueLessonIds.map((lessonId) => {
+        const lesson = this.lessons.find((lesson) => lesson.id === lessonId);
+        const quantity = this.cartItemCount(lessonId);
+        return {
+          ...lesson,
+          quantity,
+          total: quantity * lesson.price,
+        };
+      });
+    },
+
+    cartTotal() {
+      return this.cartDetails.reduce((sum, lesson) => sum + lesson.total, 0);
+    },
+    // End of Shopping Cart Functionality 1
   },
   methods: {
     // Function to change sort order - ASC or DESC
@@ -66,7 +85,7 @@ var app = new Vue({
     },
     // End of Add to Cart Functionality
 
-    // Shopping Cart Functionality
+    // Shopping Cart Functionality 2
     showCheckout() {
       this.showLessons = this.showLessons ? false : true;
     },

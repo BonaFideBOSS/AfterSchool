@@ -61,3 +61,8 @@
   left: 65%;
   top: -5px;
 }
+
+.table tbody tr td:first-of-type,
+.table tbody tr td:last-of-type {
+  width: 0;
+}

@@ -33,9 +33,9 @@
 
       <!-- Lessons Page -->
       <div v-if="showLessons">
-        <h1 class="fw-semibold">Lessons</h1>
+        <h1 class="fw-semibold mb-4">Lessons</h1>
 
-        <div class="my-3 d-flex flex-wrap flex-md-nowrap gap-3 align-items-end justify-content-end">
+        <div class="d-flex flex-wrap flex-md-nowrap gap-3 align-items-end justify-content-end">
           <!-- Search Bar -->
           <div class="input-group input-group-lg border rounded-4 overflow-hidden">
             <label class="input-group-text border-0" for="search">
@@ -72,8 +72,9 @@
                   <h6 class="card-subtitle mb-2 text-body-secondary">AED {{lesson.price}}</h6>
                   <p class="card-text">
                     <span class="badge text-bg-light fw-normal">{{lesson.location}}</span>
-                    <span class="badge text-bg-light fw-normal">{{lesson.spaces - cartItemCount(lesson.id)}}
-                      spaces</span>
+                    <span class="badge text-bg-light fw-normal">
+                      {{lesson.spaces - cartItemCount(lesson.id)}} spaces
+                    </span>
                   </p>
                   <div class="d-flex gap-2">
                     <button @click="addToCart(lesson)" :disabled="!canAddToCart(lesson)"
@@ -103,16 +104,60 @@
 
       <!-- Shopping Cart and Checkout Page -->
       <div v-else>
-        <h1 class="fw-semibold">Shopping Cart</h1>
+        <h1 class="fw-semibold mb-4">Shopping Cart</h1>
+
+        <!-- Shopping Cart -->
+        <div v-if="cart.length > 0" class="table-responsive">
+          <table class="table align-middle">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Lesson</th>
+                <th class="text-end">Price</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="lesson,index in cartDetails">
+                <td>{{index+1}}</td>
+                <td>
+                  <p class="mb-0">{{lesson.subject}}</p>
+                  <p class="mb-0 small text-muted">{{lesson.location}}</p>
+                </td>
+                <td class="text-end">
+                  <p class="mb-0 small text-muted">{{lesson.quantity}}x{{lesson.price}}</p>
+                  <p class="mb-0">AED {{lesson.total}}</p>
+                </td>
+                <td class="text-center">
+                  <button @click="removeFromCart(lesson)" class="btn btn-sm btn-outline-danger rounded-3">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot class="fs-5">
+              <tr>
+                <th colspan="2">Total</th>
+                <th class="text-end">AED {{cartTotal}}</th>
+                <th></th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <!-- End of Shopping Cart -->
+
+        <div v-else class="text-center">
+          <p class="fs-5">Your cart is empty.</p>
+          <button @click="showCheckout" class="btn btn-lg btn-outline-primary rounded-4">Browse lessons</button>
+        </div>
       </div>
       <!-- End of Shopping Cart and Checkout Page -->
-
     </div>
 
     <!-- Shopping Cart Button -->
     <div id="cart">
       <button @click="showCheckout" type="button" class="btn btn-lg position-relative"
-        :class="[cart.length > 0 ? 'btn-primary' : 'btn-secondary']" :disabled="cart.length == 0">
+        :class="[cart.length > 0 ? 'btn-primary' : 'btn-secondary']" :disabled="cart.length == 0 && showLessons">
         <i class="fa-solid" :class="[showLessons ? 'fa-cart-shopping' : 'fa-share fa-flip-horizontal']"></i>
         <span class="position-absolute badge rounded-pill bg-danger">{{cart.length}}</span>
       </button>
