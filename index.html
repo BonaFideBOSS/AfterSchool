@@ -35,7 +35,7 @@
       <div v-if="showLessons">
         <h1 class="fw-semibold mb-4">Lessons</h1>
 
-        <div class="d-flex flex-wrap flex-md-nowrap gap-3 align-items-end justify-content-end">
+        <div class="d-flex flex-wrap flex-md-nowrap gap-3">
           <!-- Search Bar -->
           <div class="input-group input-group-lg border rounded-4 overflow-hidden">
             <label class="input-group-text border-0" for="search">
@@ -45,21 +45,23 @@
               autocomplete="off" />
           </div>
 
-          <!-- Sort Bar -->
-          <div class="input-group input-group-lg border rounded-4 overflow-hidden">
-            <label class="input-group-text border-0" for="sortBy">Sort by</label>
-            <select v-model="sortBy" id="sortBy" class="form-select border-0">
-              <option value="subject">Subject</option>
-              <option value="location">Location</option>
-              <option value="price">Price</option>
-              <option value="spaces">Availability (spaces)</option>
-            </select>
-          </div>
+          <div class="d-flex gap-3 w-100">
+            <!-- Sort Bar -->
+            <div class="input-group input-group-lg border rounded-4 overflow-hidden">
+              <label class="input-group-text border-0" for="sortBy">Sort by</label>
+              <select v-model="sortBy" id="sortBy" class="form-select border-0">
+                <option value="subject">Subject</option>
+                <option value="location">Location</option>
+                <option value="price">Price</option>
+                <option value="spaces">Availability (spaces)</option>
+              </select>
+            </div>
 
-          <!-- Sort Order Button -->
-          <button @click="toggleSortOrder" class="btn btn-lg btn-outline-primary rounded-4">
-            <i :class="`fa-solid fa-arrow-${sortOrderAsc ? 'up' : 'down'}-wide-short`"></i>
-          </button>
+            <!-- Sort Order Button -->
+            <button @click="toggleSortOrder" class="btn btn-lg btn-outline-primary rounded-4">
+              <i :class="`fa-solid fa-arrow-${sortOrderAsc ? 'up' : 'down'}-wide-short`"></i>
+            </button>
+          </div>
         </div>
 
         <!-- List of Lessons -->
@@ -156,8 +158,9 @@
 
     <!-- Shopping Cart Button -->
     <div id="cart">
-      <button @click="showCheckout" type="button" class="btn btn-lg position-relative"
-        :class="[cart.length > 0 ? 'btn-primary' : 'btn-secondary']" :disabled="cart.length == 0 && showLessons">
+      <button @click="showCheckout" type="button" class="btn btn-lg position-relative btn-shockwave"
+        :class="[cart.length > 0 ? 'btn-primary' : 'btn-secondary', cart.length > 0 && showLessons ? 'is-active' : '']"
+        :disabled="cart.length == 0 && showLessons">
         <i class="fa-solid" :class="[showLessons ? 'fa-cart-shopping' : 'fa-share fa-flip-horizontal']"></i>
         <span class="position-absolute badge rounded-pill bg-danger">{{cart.length}}</span>
       </button>
