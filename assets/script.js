@@ -65,5 +65,10 @@ var app = new Vue({
       return this.cartItemCount(lesson.id) > 0;
     },
     // End of Add to Cart Functionality
+
+    // Shopping Cart Functionality
+    showCheckout() {
+      this.showLessons = this.showLessons ? false : true;
+    },
   },
 });

@@ -44,3 +44,20 @@
   width: 60px;
   height: 60px;
 }
+
+#cart {
+  position: fixed;
+  bottom: 8%;
+  right: 5%;
+}
+
+#cart .btn {
+  border-radius: 50% !important;
+  height: 70px;
+  width: 70px;
+}
+
+#cart .btn .badge {
+  left: 65%;
+  top: -5px;
+}
