@@ -12,7 +12,8 @@
 }
 
 *:focus-visible,
-*:focus {
+*:focus,
+.form-select {
   box-shadow: none !important;
 }
 
@@ -21,23 +22,23 @@
 }
 
 .text-purple {
-  --bs-text-opacity: 1;
-  color: rgba(111, 66, 193, var(--bs-text-opacity)) !important;
+  --mdb-text-opacity: 1;
+  color: rgba(111, 66, 193, var(--mdb-text-opacity)) !important;
 }
 
 .text-indigo {
-  --bs-text-opacity: 1;
-  color: rgba(102, 16, 242, var(--bs-text-opacity)) !important;
+  --mdb-text-opacity: 1;
+  color: rgba(102, 16, 242, var(--mdb-text-opacity)) !important;
 }
 
 .text-orange {
-  --bs-text-opacity: 1;
-  color: rgba(253, 126, 20, var(--bs-text-opacity)) !important;
+  --mdb-text-opacity: 1;
+  color: rgba(253, 126, 20, var(--mdb-text-opacity)) !important;
 }
 
 .text-pink {
-  --bs-text-opacity: 1;
-  color: rgba(214, 51, 132, var(--bs-text-opacity)) !important;
+  --mdb-text-opacity: 1;
+  color: rgba(214, 51, 132, var(--mdb-text-opacity)) !important;
 }
 
 .navbar img {
@@ -148,7 +149,7 @@
 @keyframes shockwave {
   0% {
     transform: scale(1);
-    box-shadow: 0 0 2px rgba(var(--bs-primary-rgb), 0.25), inset 0 0 1px rgba(var(--bs-primary-rgb), 0.25);
+    box-shadow: 0 0 2px rgba(var(--mdb-primary-rgb), 0.25), inset 0 0 1px rgba(var(--mdb-primary-rgb), 0.25);
   }
 
   95% {

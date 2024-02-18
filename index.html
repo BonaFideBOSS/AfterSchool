@@ -8,7 +8,7 @@
   <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="assets/bootstrap.5.3.2/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/mdbootstrap.7.1.0/mdb.css">
 
   <!-- Font Awesome CSS -->
   <link rel="stylesheet" href="assets/fontawesome.6.5.1/css/all.css" />
@@ -41,7 +41,7 @@
             <label class="input-group-text border-0" for="search">
               <i class="fa-solid fa-magnifying-glass"></i>
             </label>
-            <input v-model="search" id="search" class="form-control border-0" type="text" placeholder="Search lessons"
+            <input v-model="search" id="search" class="form-control border-0" type="text" placeholder="Search"
               autocomplete="off" />
           </div>
 
@@ -49,7 +49,7 @@
             <!-- Sort Bar -->
             <div class="input-group input-group-lg border rounded-4 overflow-hidden">
               <label class="input-group-text border-0" for="sortBy">Sort by</label>
-              <select v-model="sortBy" id="sortBy" class="form-select border-0">
+              <select v-model="sortBy" id="sortBy" class="form-select border-0 rounded-0">
                 <option value="subject">Subject</option>
                 <option value="location">Location</option>
                 <option value="price">Price</option>
@@ -58,7 +58,7 @@
             </div>
 
             <!-- Sort Order Button -->
-            <button @click="toggleSortOrder" class="btn btn-lg btn-outline-primary rounded-4">
+            <button @click="toggleSortOrder" class="btn btn-lg btn-primary rounded-4" data-mdb-ripple-init>
               <i :class="`fa-solid fa-arrow-${sortOrderAsc ? 'up' : 'down'}-wide-short`"></i>
             </button>
           </div>
@@ -80,12 +80,13 @@
                   </p>
                   <div class="d-flex gap-2">
                     <button @click="addToCart(lesson)" :disabled="!canAddToCart(lesson)"
-                      class="mt-auto btn btn-sm btn-outline-primary rounded-3">
+                      class="mt-auto btn btn-sm btn-outline-primary rounded-4" data-mdb-ripple-init
+                      data-mdb-ripple-color="dark">
                       Add to cart
                     </button>
                     <button @click="removeFromCart(lesson)" v-show="canRemoveFromCart(lesson)"
-                      class="btn btn-sm btn-outline-danger rounded-3">
-                      <i class="fa-regular fa-trash-can"></i>
+                      class="btn btn-sm btn-outline-danger rounded-4" data-mdb-ripple-init data-mdb-ripple-color="dark">
+                      <i class="fa-solid fa-trash-can"></i>
                     </button>
                   </div>
                 </div>
@@ -110,7 +111,7 @@
 
         <!-- Shopping Cart -->
         <div v-if="cart.length > 0" class="table-responsive">
-          <table class="table align-middle">
+          <table class="table align-middle table-hover">
             <thead>
               <tr>
                 <th>#</th>
@@ -131,8 +132,9 @@
                   <p class="mb-0">AED {{lesson.total}}</p>
                 </td>
                 <td class="text-center">
-                  <button @click="removeFromCart(lesson)" class="btn btn-sm btn-outline-danger rounded-3">
-                    <i class="fa-regular fa-trash-can"></i>
+                  <button @click="removeFromCart(lesson)" class="btn btn-sm btn-outline-danger rounded-4"
+                    data-mdb-ripple-init data-mdb-ripple-color="dark">
+                    <i class="fa-solid fa-trash-can"></i>
                   </button>
                 </td>
               </tr>
@@ -145,12 +147,17 @@
               </tr>
             </tfoot>
           </table>
+          <!-- End of Shopping Cart -->
+
+          <h2 class="fw-semibold mb-4 mt-5">Checkout</h2>
         </div>
-        <!-- End of Shopping Cart -->
 
         <div v-else class="text-center">
           <p class="fs-5">Your cart is empty.</p>
-          <button @click="showCheckout" class="btn btn-lg btn-outline-primary rounded-4">Browse lessons</button>
+          <button @click="showCheckout" class="btn btn-lg btn-outline-primary rounded-4" data-mdb-ripple-init
+            data-mdb-ripple-color="dark">
+            Browse lessons
+          </button>
         </div>
       </div>
       <!-- End of Shopping Cart and Checkout Page -->
@@ -160,9 +167,9 @@
     <div id="cart">
       <button @click="showCheckout" type="button" class="btn btn-lg position-relative btn-shockwave"
         :class="[cart.length > 0 ? 'btn-primary' : 'btn-secondary', cart.length > 0 && showLessons ? 'is-active' : '']"
-        :disabled="cart.length == 0 && showLessons">
+        :disabled="cart.length == 0 && showLessons" data-mdb-ripple-init>
         <i class="fa-solid" :class="[showLessons ? 'fa-cart-shopping' : 'fa-share fa-flip-horizontal']"></i>
-        <span class="position-absolute badge rounded-pill bg-danger">{{cart.length}}</span>
+        <span v-show="showLessons" class="position-absolute badge rounded-pill badge-danger">{{cart.length}}</span>
       </button>
     </div>
   </main>
@@ -176,10 +183,10 @@
   </footer>
 
   <!-- Bootstrap JavaScript -->
-  <script src="assets/bootstrap.5.3.2/bootstrap.bundle.min.js"></script>
+  <script src="assets/mdbootstrap.7.1.0/mdb.umd.js"></script>
 
   <!-- Vue.js Production Build -->
-  <!-- <script src="assets/vue.2.7.16.min.js"></script> -->
+  <!-- <script src="assets/vue.2.7.16.js"></script> -->
 
   <!-- Vue.js Developer Build -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
