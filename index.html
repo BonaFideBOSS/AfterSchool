@@ -154,12 +154,13 @@
           <h2 class="fw-semibold mt-5">Checkout</h2>
           <p class="text-muted mb-4">Please fill the checkout form.</p>
 
-          <form @submit.prevent="submitCheckoutForm" class="col-md-8 col-lg-5">
+          <!-- Checkout Form -->
+          <form @submit.prevent="" class="col-md-8 col-lg-5">
             <div class="mb-3">
               <div class="form-floating">
                 <input v-model="user.name" @input="validateUserName" type="text" id="username" class="form-control"
                   placeholder="username" autocomplete="off" />
-                <label for="username">Your Name</label>
+                <label for="username">Name</label>
               </div>
               <span v-if="!user.isNameValid && user.name" class="small text-danger">
                 Name must only contain letters.
@@ -177,9 +178,38 @@
               </span>
             </div>
 
-            <button :disabled="!(user.isNameValid && user.isPhoneValid)" type="submit"
-              class="btn btn-lg btn-primary">Checkout</button>
+            <button :disabled="!(user.isNameValid && user.isPhoneValid)" type="submit" class="btn btn-lg btn-primary"
+              data-mdb-modal-init data-mdb-target="#checkoutResult">
+              Checkout
+            </button>
           </form>
+          <!-- End of Checkout Form -->
+
+          <!-- Checkout Completion Message -->
+          <div class="modal fade" id="checkoutResult" tabindex="-1" data-mdb-backdrop="static"
+            data-mdb-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body text-center">
+                  <div v-if="user.isNameValid && user.isPhoneValid">
+                    <i class="fa-light fa-circle-check fa-5x text-success my-4"></i>
+                    <h3>Order Submitted!</h3>
+                  </div>
+                  <div v-else>
+                    <i class="fa-light fa-circle-x fa-5x text-danger my-4"></i>
+                    <h3>Order Failed!</h3>
+                  </div>
+                </div>
+                <div class="modal-footer border-0">
+                  <button @click="completeCheckout" type="button" class="btn btn-primary mx-auto"
+                    data-mdb-dismiss="modal" data-mdb-ripple-init>
+                    Okay
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End of Checkout Completion Message -->
         </div>
 
         <div v-else class="text-center">

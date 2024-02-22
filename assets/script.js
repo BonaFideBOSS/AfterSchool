@@ -100,9 +100,10 @@ var app = new Vue({
       this.user.isPhoneValid = /^\d+$/.test(this.user.phone);
     },
 
-    submitCheckoutForm() {
+    completeCheckout() {
       if (this.user.isNameValid && this.user.isPhoneValid) {
-        alert("Order Submitted!");
+        this.cart = [];
+        this.showLessons = true;
       }
     },
   },
