@@ -41,6 +41,11 @@
   color: rgba(214, 51, 132, var(--mdb-text-opacity)) !important;
 }
 
+.btn:disabled {
+  cursor: not-allowed;
+  pointer-events: all;
+}
+
 .navbar img {
   width: 60px;
   height: 60px;

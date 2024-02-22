@@ -21,7 +21,7 @@
   <nav class="navbar border-bottom border-2 border-warning">
     <div class="container-fluid">
       <a class="navbar-brand fs-1 fw-bold satisfy-regular mx-auto" href="/">
-        <!-- <img src="assets/images/logo.png" /> -->
+        <!-- <img class="me-3" src="assets/images/logo.png" /> -->
         <span class="satisfy-regular text-danger fw-bold">After</span><span
           class="satisfy-regular fw-bold">School</span>
       </a>
@@ -84,7 +84,7 @@
                       data-mdb-ripple-color="dark">
                       Add to cart
                     </button>
-                    <button @click="removeFromCart(lesson)" v-show="canRemoveFromCart(lesson)"
+                    <button @click="removeFromCart(lesson)" v-if="canRemoveFromCart(lesson)"
                       class="btn btn-sm btn-outline-danger rounded-4" data-mdb-ripple-init data-mdb-ripple-color="dark">
                       <i class="fa-solid fa-trash-can"></i>
                     </button>
@@ -98,7 +98,7 @@
           </div>
         </div>
 
-        <div v-show="sortedLessons.length == 0" class="alert alert-danger mt-4" role="alert">
+        <div v-if="sortedLessons.length == 0" class="alert alert-danger mt-4" role="alert">
           No lessons found.
         </div>
         <!-- End of List of Lessons -->
@@ -110,46 +110,76 @@
         <h1 class="fw-semibold mb-4">Shopping Cart</h1>
 
         <!-- Shopping Cart -->
-        <div v-if="cart.length > 0" class="table-responsive">
-          <table class="table align-middle table-hover">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Lesson</th>
-                <th class="text-end">Price</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="lesson,index in cartDetails">
-                <td>{{index+1}}</td>
-                <td>
-                  <p class="mb-0">{{lesson.subject}}</p>
-                  <p class="mb-0 small text-muted">{{lesson.location}}</p>
-                </td>
-                <td class="text-end">
-                  <p class="mb-0 small text-muted">{{lesson.quantity}}x{{lesson.price}}</p>
-                  <p class="mb-0">AED {{lesson.total}}</p>
-                </td>
-                <td class="text-center">
-                  <button @click="removeFromCart(lesson)" class="btn btn-sm btn-outline-danger rounded-4"
-                    data-mdb-ripple-init data-mdb-ripple-color="dark">
-                    <i class="fa-solid fa-trash-can"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-            <tfoot class="fs-5">
-              <tr>
-                <th colspan="2">Total</th>
-                <th class="text-end">AED {{cartTotal}}</th>
-                <th></th>
-              </tr>
-            </tfoot>
-          </table>
+        <div v-if="cart.length > 0">
+          <div class="table-responsive">
+            <table class="table align-middle table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Lesson</th>
+                  <th class="text-end">Price</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="lesson,index in cartDetails">
+                  <td>{{index+1}}</td>
+                  <td>
+                    <p class="mb-0">{{lesson.subject}}</p>
+                    <p class="mb-0 small text-muted">{{lesson.location}}</p>
+                  </td>
+                  <td class="text-end">
+                    <p class="mb-0 small text-muted">{{lesson.quantity}}x{{lesson.price}}</p>
+                    <p class="mb-0">AED {{lesson.total}}</p>
+                  </td>
+                  <td class="text-center">
+                    <button @click="removeFromCart(lesson)" class="btn btn-sm btn-outline-danger rounded-4"
+                      data-mdb-ripple-init data-mdb-ripple-color="dark">
+                      <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot class="fs-5">
+                <tr>
+                  <th colspan="2">Total</th>
+                  <th class="text-end">AED {{cartTotal}}</th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
           <!-- End of Shopping Cart -->
 
-          <h2 class="fw-semibold mb-4 mt-5">Checkout</h2>
+          <h2 class="fw-semibold mt-5">Checkout</h2>
+          <p class="text-muted mb-4">Please fill the checkout form.</p>
+
+          <form @submit.prevent="submitCheckoutForm" class="col-md-8 col-lg-5">
+            <div class="mb-3">
+              <div class="form-floating">
+                <input v-model="user.name" @input="validateUserName" type="text" id="username" class="form-control"
+                  placeholder="username" autocomplete="off" />
+                <label for="username">Your Name</label>
+              </div>
+              <span v-if="!user.isNameValid && user.name" class="small text-danger">
+                Name must only contain letters.
+              </span>
+            </div>
+
+            <div class="mb-3">
+              <div class="form-floating">
+                <input v-model="user.phone" @input="validateUserPhone" type="tel" id="phone" class="form-control"
+                  placeholder="phone" autocomplete="off" />
+                <label for="phone">Phone</label>
+              </div>
+              <span v-if="!user.isPhoneValid && user.phone" class="small text-danger">
+                Phone must only contain numbers.
+              </span>
+            </div>
+
+            <button :disabled="!(user.isNameValid && user.isPhoneValid)" type="submit"
+              class="btn btn-lg btn-primary">Checkout</button>
+          </form>
         </div>
 
         <div v-else class="text-center">
@@ -169,7 +199,7 @@
         :class="[cart.length > 0 ? 'btn-primary' : 'btn-secondary', cart.length > 0 && showLessons ? 'is-active' : '']"
         :disabled="cart.length == 0 && showLessons" data-mdb-ripple-init>
         <i class="fa-solid" :class="[showLessons ? 'fa-cart-shopping' : 'fa-share fa-flip-horizontal']"></i>
-        <span v-show="showLessons" class="position-absolute badge rounded-pill badge-danger">{{cart.length}}</span>
+        <span v-if="showLessons" class="position-absolute badge rounded-pill badge-danger" v-text="cart.length"></span>
       </button>
     </div>
   </main>
@@ -186,10 +216,7 @@
   <script src="assets/mdbootstrap.7.1.0/mdb.umd.js"></script>
 
   <!-- Vue.js Production Build -->
-  <!-- <script src="assets/vue.2.7.16.js"></script> -->
-
-  <!-- Vue.js Developer Build -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+  <script src="assets/vue.2.7.16.js"></script>
 
   <!-- Custom JavaScript -->
   <script src="lessons.js"></script>

@@ -8,6 +8,7 @@ var app = new Vue({
     search: "",
     sortBy: "subject",
     sortOrderAsc: true,
+    user: { name: "", phone: "", isNameValid: false, isPhoneValid: false },
   },
   computed: {
     // Search Functionality
@@ -88,6 +89,21 @@ var app = new Vue({
     // Shopping Cart Functionality 2
     showCheckout() {
       this.showLessons = this.showLessons ? false : true;
+    },
+
+    // Checkout Functionality
+    validateUserName() {
+      this.user.isNameValid = /^[a-zA-Z]+$/.test(this.user.name);
+    },
+
+    validateUserPhone() {
+      this.user.isPhoneValid = /^\d+$/.test(this.user.phone);
+    },
+
+    submitCheckoutForm() {
+      if (this.user.isNameValid && this.user.isPhoneValid) {
+        alert("Order Submitted!");
+      }
     },
   },
 });

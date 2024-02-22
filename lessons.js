@@ -122,7 +122,7 @@ let lessons = [
     location: "Sharjah",
     price: 110,
     spaces: 5,
-    icon: "fa-user-chef",
+    icon: "fa-pot-food",
     color: "purple",
   },
   {
