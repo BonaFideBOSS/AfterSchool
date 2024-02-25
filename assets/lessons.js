@@ -1,4 +1,4 @@
-let lessons = [
+const lessons = [
   {
     id: 1,
     subject: "Math",

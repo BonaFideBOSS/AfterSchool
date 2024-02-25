@@ -67,7 +67,7 @@
         <!-- List of Lessons -->
         <div class="mt-4 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
           <div v-for="lesson in sortedLessons" class="col">
-            <div class="card h-100 rounded-4">
+            <div class="card h-100 rounded-4" :class="[lesson.spaces == 0 ? 'opacity-50' : '']">
               <div class="card-body d-flex">
                 <div class="d-flex flex-column">
                   <h5 class="card-title">{{lesson.subject}}</h5>
@@ -75,14 +75,15 @@
                   <p class="card-text">
                     <span class="badge text-bg-light fw-normal">{{lesson.location}}</span>
                     <span class="badge text-bg-light fw-normal">
-                      {{lesson.spaces - cartItemCount(lesson.id)}} spaces
+                      {{lesson.spaces}} spaces
                     </span>
                   </p>
                   <div class="d-flex gap-2">
                     <button @click="addToCart(lesson)" :disabled="!canAddToCart(lesson)"
-                      class="mt-auto btn btn-sm btn-outline-primary rounded-4" data-mdb-ripple-init
-                      data-mdb-ripple-color="dark">
+                      class="mt-auto btn btn-sm rounded-4" data-mdb-ripple-init data-mdb-ripple-color="dark"
+                      :class="`btn-outline-${ cartItemCount(lesson.id) > 0 ? 'success' : 'primary'}`">
                       Add to cart
+                      <span v-if="cartItemCount(lesson.id) > 0">({{cartItemCount(lesson.id)}})</span>
                     </button>
                     <button @click="removeFromCart(lesson)" v-if="canRemoveFromCart(lesson)"
                       class="btn btn-sm btn-outline-danger rounded-4" data-mdb-ripple-init data-mdb-ripple-color="dark">
@@ -155,7 +156,7 @@
           <p class="text-muted mb-4">Please fill the checkout form.</p>
 
           <!-- Checkout Form -->
-          <form @submit.prevent="" class="col-md-8 col-lg-5">
+          <form @submit.prevent="completeCheckout" class="col-md-8 col-lg-5">
             <div class="mb-3">
               <div class="form-floating">
                 <input v-model="user.name" @input="validateUserName" type="text" id="username" class="form-control"
@@ -179,7 +180,7 @@
             </div>
 
             <button :disabled="!(user.isNameValid && user.isPhoneValid)" type="submit" class="btn btn-lg btn-primary"
-              data-mdb-modal-init data-mdb-target="#checkoutResult">
+              data-mdb-modal-init data-mdb-target="#checkoutResult" data-mdb-ripple-init>
               Checkout
             </button>
           </form>
@@ -201,8 +202,7 @@
                   </div>
                 </div>
                 <div class="modal-footer border-0">
-                  <button @click="completeCheckout" type="button" class="btn btn-primary mx-auto"
-                    data-mdb-dismiss="modal" data-mdb-ripple-init>
+                  <button type="button" class="btn btn-primary mx-auto" data-mdb-dismiss="modal" data-mdb-ripple-init>
                     Okay
                   </button>
                 </div>
@@ -249,7 +249,7 @@
   <script src="assets/vue.2.7.16.js"></script>
 
   <!-- Custom JavaScript -->
-  <script src="lessons.js"></script>
+  <script src="assets/lessons.js"></script>
   <script src="assets/script.js"></script>
 </body>
 

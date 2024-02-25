@@ -67,7 +67,7 @@ var app = new Vue({
     },
 
     removeFromCart(lesson) {
-      const index = this.cart.indexOf(lesson.id);
+      const index = this.cart.lastIndexOf(lesson.id);
       if (index > -1) {
         this.cart.splice(index, 1);
       }
@@ -102,6 +102,11 @@ var app = new Vue({
 
     completeCheckout() {
       if (this.user.isNameValid && this.user.isPhoneValid) {
+        this.lessons = this.lessons.map((lesson) => ({
+          ...lesson,
+          spaces:
+            lesson.spaces - this.cart.filter((id) => id === lesson.id).length,
+        }));
         this.cart = [];
         this.showLessons = true;
       }
