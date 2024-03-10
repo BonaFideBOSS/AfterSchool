@@ -160,7 +160,8 @@
             <div class="mb-3">
               <div class="form-floating">
                 <input v-model="user.name" @input="validateUserName" type="text" id="username" class="form-control"
-                  placeholder="username" autocomplete="off" />
+                  placeholder="username" autocomplete="off"
+                  :class="[!user.isNameValid && user.name ? 'border-danger' : '']" />
                 <label for="username">Name</label>
               </div>
               <span v-if="!user.isNameValid && user.name" class="small text-danger">
@@ -171,7 +172,8 @@
             <div class="mb-3">
               <div class="form-floating">
                 <input v-model="user.phone" @input="validateUserPhone" type="tel" id="phone" class="form-control"
-                  placeholder="phone" autocomplete="off" />
+                  placeholder="phone" autocomplete="off"
+                  :class="[!user.isPhoneValid && user.phone ? 'border-danger' : '']" />
                 <label for="phone">Phone</label>
               </div>
               <span v-if="!user.isPhoneValid && user.phone" class="small text-danger">

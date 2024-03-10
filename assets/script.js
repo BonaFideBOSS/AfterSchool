@@ -104,8 +104,7 @@ var app = new Vue({
       if (this.user.isNameValid && this.user.isPhoneValid) {
         this.lessons = this.lessons.map((lesson) => ({
           ...lesson,
-          spaces:
-            lesson.spaces - this.cart.filter((id) => id === lesson.id).length,
+          spaces: lesson.spaces - this.cartItemCount(lesson.id),
         }));
         this.cart = [];
         this.showLessons = true;
