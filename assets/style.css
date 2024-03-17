@@ -51,6 +51,10 @@
   height: 60px;
 }
 
+[v-cloak] {
+  display: none;
+}
+
 #cart {
   position: fixed;
   bottom: 7%;

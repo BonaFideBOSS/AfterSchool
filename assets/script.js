@@ -89,6 +89,7 @@ var app = new Vue({
     // Shopping Cart Functionality 2
     showCheckout() {
       this.showLessons = this.showLessons ? false : true;
+      window.scrollTo(0, 0);
     },
 
     // Checkout Functionality
